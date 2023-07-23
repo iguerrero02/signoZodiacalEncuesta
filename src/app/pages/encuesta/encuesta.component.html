@@ -1,0 +1,27 @@
+<div class="encuesta-container">
+  <h1 class="encuesta-title">Encuesta Zodiacal</h1>
+  <mat-form-field appearance="fill" class="nombre-input">
+    <input matInput [(ngModel)]="nombrePersona" placeholder="Ingresa tu nombre">
+  </mat-form-field>
+  <div *ngFor="let pregunta of preguntas" class="pregunta-container">
+    <h3>{{ pregunta.texto }}</h3>
+    <ng-container *ngIf="pregunta.opciones">
+      <!-- Opciones de respuesta para preguntas con opciones predefinidas -->
+      <ul>
+        <li *ngFor="let opcion of pregunta.opciones">
+          <input type="radio" [name]="'pregunta-' + pregunta.id" (change)="guardarRespuesta(pregunta, opcion)">
+          {{ opcion }}
+        </li>
+      </ul>
+    </ng-container>
+    <!-- Campo de texto para preguntas con respuesta libre -->
+    <!-- <ng-template #respuestaLibre>
+      <div class="respuesta-libre-container">
+        <mat-form-field appearance="fill" class="respuesta-libre-input">
+          <input matInput [(ngModel)]="pregunta.respuestaLibre">
+        </mat-form-field>
+      </div>
+    </ng-template> -->
+  </div>
+  <button mat-raised-button color="primary" [ngClass]="{'seleccionado': preguntaSeleccionada !== null}" (click)="enviarRespuestas()">Enviar Respuestas</button>
+</div>
